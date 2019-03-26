@@ -5,6 +5,7 @@ public class demo
 
     /*****************多个页面点击*******************/
 
+
 //    String mainPageStr = "{" +
 //            "'maxWClickMSec':1000," +
 //            "'click':{'text':'我'}," +
