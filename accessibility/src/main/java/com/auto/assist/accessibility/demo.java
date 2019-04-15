@@ -44,19 +44,11 @@ public class demo
 //            "}}";
 //
 //
-//    ActionSelector mainPage = new Gson().fromJson(mainPageStr, ActionSelector.class);
-//    ActionSelector mePage = new Gson().fromJson(mePageStr, ActionSelector.class);
-//    ActionSelector payMent = new Gson().fromJson(payMentStr, ActionSelector.class);
-//    ActionSelector payPage = new Gson().fromJson(payPageStr, ActionSelector.class);
-//
-//    List<ActionSelector> lists = new ArrayList<>();
-//        lists.add(mainPage);
-//        lists.add(mePage);
-//        lists.add(payMent);
-//        lists.add(payPage);
+
+
 //
 //
-//         UiApi.jumpToNeedPage(lists);
+//         UiApi.jumpToNeedPage(new String[]{mainPageStr,mePageStr,payMentStr,payPageStr});
 
 
 
@@ -69,6 +61,5 @@ public class demo
 //            "'must':{'text':['清除金额','保存收款码']}" +
 //            "}";
 //
-//    NodeSelector mainPage = new Gson().fromJson(codePageStr, NodeSelector.class);
-//         UiApi.isMyNeedPage(mainPage);
+//         UiApi.isMyNeedPage(codePageStr);
 }

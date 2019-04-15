@@ -7,7 +7,9 @@ import com.auto.assist.accessibility.selector.NodeSelector;
 import com.auto.assist.accessibility.util.ApiUtil;
 import com.auto.assist.accessibility.util.Config;
 import com.auto.assist.accessibility.util.LogUtil;
+import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,9 +25,9 @@ public class UiApi
 
     /**
      * 通过text获取节点,直到超时
-     *
      */
-    public static AccessibilityNodeInfo findNodeByTextWithTimeOut(long maxMills, String text) {
+    public static AccessibilityNodeInfo findNodeByTextWithTimeOut(long maxMills, String text)
+    {
         AccessibilityNodeInfo mNode = null;
 
         long beginUtcMsc = System.currentTimeMillis(); //记录当前开始时间
@@ -64,7 +66,8 @@ public class UiApi
     /**
      * 通过text获取节点,直到超时
      */
-    public static AccessibilityNodeInfo findNodeByIdWithTimeOut(long maxMills, String id) {
+    public static AccessibilityNodeInfo findNodeByIdWithTimeOut(long maxMills, String id)
+    {
         AccessibilityNodeInfo mNode;
 
         long beginUtcMsc = System.currentTimeMillis(); //记录当前开始时间
@@ -100,7 +103,8 @@ public class UiApi
     /**
      * 根据描述查找控件,含超时时间
      */
-    public static AccessibilityNodeInfo findNodeByDesWithTimeOut(long maxMills, String des) {
+    public static AccessibilityNodeInfo findNodeByDesWithTimeOut(long maxMills, String des)
+    {
         AccessibilityNodeInfo mNode;
 
         long beginUtcMsc = System.currentTimeMillis(); //记录当前开始时间
@@ -136,9 +140,9 @@ public class UiApi
 
     /**
      * 根据类名查找控件,含超时时间
-
      */
-    public static AccessibilityNodeInfo findNodeByClsWithTimeOut(long maxMills, String cls) {
+    public static AccessibilityNodeInfo findNodeByClsWithTimeOut(long maxMills, String cls)
+    {
         AccessibilityNodeInfo mNode = null;
 
         long beginUtcMsc = System.currentTimeMillis(); //记录当前开始时间
@@ -175,9 +179,9 @@ public class UiApi
 
     /**
      * 按条件查找节点,并返回text中的字符串
-     *
      */
-    public static String getTextByNode(long maxMustMills, HashMap<String, String> map) {
+    public static String getTextByNode(long maxMustMills, HashMap<String, String> map)
+    {
         HashMap<String, String[]> map2 = new HashMap<>();
 
         for (String item : map.keySet())
@@ -201,9 +205,10 @@ public class UiApi
      * 通过条件精确查找,获取节点上的描述信息
      *
      * @param maxMustMills 超时时间
-     * @param map 查找条件
+     * @param map          查找条件
      */
-    public static String getDescByNode(long maxMustMills, HashMap<String, String> map) {
+    public static String getDescByNode(long maxMustMills, HashMap<String, String> map)
+    {
 
         HashMap<String, String[]> map2 = new HashMap<>();
 
@@ -231,13 +236,15 @@ public class UiApi
      * @param text
      * @return
      */
-    public static boolean clickNodeByTextWithTimeOut(long maxMills, String text) {
+    public static boolean clickNodeByTextWithTimeOut(long maxMills, String text)
+    {
 
         boolean isClick;
 
         AccessibilityNodeInfo node = findNodeByTextWithTimeOut(maxMills, text);
 
-        if (node == null) return false;
+        if (node == null)
+            return false;
         long beginUtcMsc = System.currentTimeMillis(); //记录当前开始时间
         long curUtcMsc; //当前时间
         if (maxMills == 0 || maxMills < 0)
@@ -276,13 +283,15 @@ public class UiApi
      * @param id       id查找
      * @return
      */
-    public static boolean clickNodeByIdWithTimeOut(long maxMills, String id) {
+    public static boolean clickNodeByIdWithTimeOut(long maxMills, String id)
+    {
 
         boolean isClick = false;
 
         AccessibilityNodeInfo node = findNodeByIdWithTimeOut(maxMills, id);
 
-        if (node == null) return false;
+        if (node == null)
+            return false;
         long beginUtcMsc = System.currentTimeMillis(); //记录当前开始时间
         long curUtcMsc; //当前时间
         if (maxMills == 0 || maxMills < 0)
@@ -318,13 +327,15 @@ public class UiApi
      *
      * @return
      */
-    public static boolean clickNodeByDesWithTimeOut(long maxMills, String id) {
+    public static boolean clickNodeByDesWithTimeOut(long maxMills, String id)
+    {
 
         boolean isClick;
 
         AccessibilityNodeInfo node = findNodeByDesWithTimeOut(maxMills, id);
 
-        if (node == null) return false;
+        if (node == null)
+            return false;
         long beginUtcMsc = System.currentTimeMillis(); //记录当前开始时间
         long curUtcMsc; //当前时间
         if (maxMills == 0 || maxMills < 0)
@@ -360,10 +371,12 @@ public class UiApi
      *
      * @param maxMills 超时时间
      */
-    public static boolean clickNodeWithTimeOut(long maxMills, AccessibilityNodeInfo node) {
+    public static boolean clickNodeWithTimeOut(long maxMills, AccessibilityNodeInfo node)
+    {
         boolean isClick = false;
 
-        if (node == null) return false;
+        if (node == null)
+            return false;
         long beginUtcMsc = System.currentTimeMillis(); //记录当前开始时间
         long curUtcMsc; //当前时间
         if (maxMills == 0 || maxMills < 0)
@@ -401,7 +414,8 @@ public class UiApi
      * @param maxMustMills 超时时间
      * @param map          查找的条件
      */
-    public static AccessibilityNodeInfo findOptionNodeWithTimeOut(long maxMustMills, HashMap<String, String[]> map) {
+    public static AccessibilityNodeInfo findOptionNodeWithTimeOut(long maxMustMills, HashMap<String, String[]> map)
+    {
 
         AccessibilityNodeInfo nodeInfo;
 
@@ -412,7 +426,8 @@ public class UiApi
             {
 
                 String[] vlue = map.get(item);
-                if (vlue.length == 0) continue;
+                if (vlue.length == 0)
+                    continue;
 
                 switch (item)
                 {
@@ -472,14 +487,24 @@ public class UiApi
 
     }
 
+    /**
+     * 判断是否是当前页面
+     */
+    public static boolean isMyNeedPage(String selecor)
+    {
+        NodeSelector selector = new Gson().fromJson(selecor, NodeSelector.class);
+        return isMyNeedPage(selector);
+    }
 
     /**
      * 判断是否是当前页面
      */
-    public static boolean isMyNeedPage(NodeSelector nodeSelecor) {
+    private static boolean isMyNeedPage(NodeSelector nodeSelecor)
+    {
         boolean isPage;
 
-        if (nodeSelecor == null) return false;
+        if (nodeSelecor == null)
+            return false;
 
         long maxMustMills = nodeSelecor.getMaxMustMills();
         long maxOptionMills = nodeSelecor.getMaxOptionMills();
@@ -493,7 +518,8 @@ public class UiApi
             {
 
                 String[] vlue = must.get(item);
-                if (vlue.length == 0) continue;
+                if (vlue.length == 0)
+                    continue;
 
 
                 switch (item)
@@ -562,7 +588,8 @@ public class UiApi
             {
 
                 String[] vlue = option.get(item);
-                if (vlue.length == 0) continue;
+                if (vlue.length == 0)
+                    continue;
 
                 switch (item)
                 {
@@ -627,16 +654,35 @@ public class UiApi
         return isPage;
     }
 
+    public static boolean jumpToNeedPage(String[] selecors)
+    {
+        List<ActionSelector> lists = new ArrayList<>();
+        for (String item : selecors)
+        {
+            ActionSelector payPage = new Gson().fromJson(item, ActionSelector.class);
+            if (payPage == null)
+            {
+                LogUtil.E("选择器字符串无法格式成功");
+                return false;
+            }
+            lists.add(payPage);
+        }
+
+        return jumpToNeedPage(lists);
+    }
+
 
     /**
      * 前往预期页面,可以串联多个页面路径
      *
      * @param lists 条件
      */
-    public static boolean jumpToNeedPage(List<ActionSelector> lists) {
+    private static boolean jumpToNeedPage(List<ActionSelector> lists)
+    {
         boolean isJump = false;
 
-        if (lists == null || lists.size() == 0) return false;
+        if (lists == null || lists.size() == 0)
+            return false;
 
 
         for (ActionSelector item : lists)
@@ -704,7 +750,8 @@ public class UiApi
      * @param inputStr 输入的内容
      * @return 是否输入成功
      */
-    public static boolean findNodeByTextAndInput(long maxMils, String text, String inputStr) {
+    public static boolean findNodeByTextAndInput(long maxMils, String text, String inputStr)
+    {
         AccessibilityNodeInfo node = findNodeByTextWithTimeOut(maxMils, text);
 
         if (node != null)
@@ -724,7 +771,8 @@ public class UiApi
      * @param inputStr 输入的内容
      * @return 是否输入成功
      */
-    public static boolean findNodeByIdAndInput(long maxMils, String id, String inputStr) {
+    public static boolean findNodeByIdAndInput(long maxMils, String id, String inputStr)
+    {
         AccessibilityNodeInfo node = findNodeByIdWithTimeOut(maxMils, id);
 
         if (node != null)
@@ -739,7 +787,8 @@ public class UiApi
     /**
      * 回退到桌面
      */
-    public static boolean backToDesk() {
+    public static boolean backToDesk()
+    {
         int i = 10;
         while (i > 0)
         {
@@ -775,7 +824,8 @@ public class UiApi
     /**
      * 回home
      */
-    public static void backHome() {
+    public static void backHome()
+    {
         AcessibilityApi.performAction(AcessibilityApi.ActionType.HOME);
 
     }
@@ -783,14 +833,16 @@ public class UiApi
     /**
      * 回back
      */
-    public static void back() {
+    public static void back()
+    {
         AcessibilityApi.performAction(AcessibilityApi.ActionType.BACK);
     }
 
-    private static boolean isExists(AccessibilityNodeInfo nodeInfo) {
+    private static boolean isExists(AccessibilityNodeInfo nodeInfo)
+    {
         return nodeInfo != null;
 
     }
 
-  
+
 }
