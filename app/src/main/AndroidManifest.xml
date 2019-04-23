@@ -4,6 +4,7 @@
     package="com.mmo.accessibilitydemo">
 
     <application
+        android:name=".UiApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,7 +21,7 @@
         </activity>
 
         <service
-            android:name=".MainAccessService"
+            android:name="com.mmo.accessibilitydemo.MainAccessService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />

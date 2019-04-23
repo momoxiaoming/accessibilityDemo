@@ -24,7 +24,102 @@ public class UiApi
 
 
     /**
+     * 判断是否是当前页面
+     */
+    public static boolean isMyNeedPage(String selecor)
+    {
+        NodeSelector selector = new Gson().fromJson(selecor, NodeSelector.class);
+        return isMyNeedPage(selector);
+    }
+
+    /**
+     * 前往某个界面
+     *
+     * @param selecors 选择器内容数组
+     * @return
+     */
+    public static boolean jumpToNeedPage(String[] selecors)
+    {
+        if (selecors == null)
+            return false;
+        List<ActionSelector> lists = new ArrayList<>();
+        for (String item : selecors)
+        {
+            ActionSelector payPage = new Gson().fromJson(item, ActionSelector.class);
+            if (payPage == null)
+            {
+                LogUtil.E("选择器字符串无法格式成功");
+                return false;
+            }
+            lists.add(payPage);
+        }
+
+        return jumpToNeedPage(lists);
+    }
+
+
+    /**
+     * 回到home页
+     */
+    public static void backHome()
+    {
+        AcessibilityApi.performAction(AcessibilityApi.ActionType.HOME);
+
+    }
+
+    /**
+     * 返回
+     */
+    public static void back()
+    {
+        AcessibilityApi.performAction(AcessibilityApi.ActionType.BACK);
+    }
+
+
+    /**
+     * 回退到桌面
+     */
+    public static boolean backToDesk()
+    {
+        int i = 10;
+        while (i > 0)
+        {
+
+            AcessibilityApi.performAction(AcessibilityApi.ActionType.BACK);
+            String pke = AcessibilityApi.getEventPkg();
+            LogUtil.I("正在执行回退_当前包名:" + pke);
+
+            if ("".equals(pke))
+            {
+                LogUtil.D("辅助服务异常");
+                return false;
+            }
+
+
+            for (String str : Config.DESKTOP_PKG)
+            {
+                if (str.equals(pke))
+                {
+                    LogUtil.I("已到桌面");
+
+                    return true;
+                }
+            }
+            ApiUtil.sleepTime(1000);
+            i--;
+        }
+
+        return false;
+
+    }
+
+
+    /**
      * 通过text获取节点,直到超时
+     *
+     * @param maxMills 最大查找时间
+     * @param text     查找文本
+     * @return 节点对象
      */
     public static AccessibilityNodeInfo findNodeByTextWithTimeOut(long maxMills, String text)
     {
@@ -64,7 +159,11 @@ public class UiApi
 
 
     /**
-     * 通过text获取节点,直到超时
+     * 通过Id获取节点,直到超时
+     *
+     * @param maxMills 最大查找时间
+     * @param id       查找的资源id
+     * @return 节点对象
      */
     public static AccessibilityNodeInfo findNodeByIdWithTimeOut(long maxMills, String id)
     {
@@ -103,6 +202,13 @@ public class UiApi
     /**
      * 根据描述查找控件,含超时时间
      */
+    /**
+     * 通过desc获取节点,直到超时
+     *
+     * @param maxMills 最大查找时间
+     * @param des      查找的节点的描述内容
+     * @return 节点对象
+     */
     public static AccessibilityNodeInfo findNodeByDesWithTimeOut(long maxMills, String des)
     {
         AccessibilityNodeInfo mNode;
@@ -139,7 +245,11 @@ public class UiApi
 
 
     /**
-     * 根据类名查找控件,含超时时间
+     * 根据类名查找控件,直到超时时间
+     *
+     * @param maxMills 最大查找时间
+     * @param cls      节点的类名
+     * @return 节点对象
      */
     public static AccessibilityNodeInfo findNodeByClsWithTimeOut(long maxMills, String cls)
     {
@@ -488,13 +598,47 @@ public class UiApi
     }
 
     /**
-     * 判断是否是当前页面
+     * 通过text查找输入控件,然后输入
+     *
+     * @param maxMils  最大超时时间
+     * @param text     text节点查找
+     * @param inputStr 输入的内容
+     * @return 是否输入成功
      */
-    public static boolean isMyNeedPage(String selecor)
+    public static boolean findNodeByTextAndInput(long maxMils, String text, String inputStr)
     {
-        NodeSelector selector = new Gson().fromJson(selecor, NodeSelector.class);
-        return isMyNeedPage(selector);
+        AccessibilityNodeInfo node = findNodeByTextWithTimeOut(maxMils, text);
+
+        if (node != null)
+        {
+            return AcessibilityApi.inputTextByNode(node, inputStr);
+
+        }
+
+        return false;
     }
+
+    /**
+     * 通过text查找输入控件,然后输入
+     *
+     * @param maxMils  最大超时时间
+     * @param id       id节点查找
+     * @param inputStr 输入的内容
+     * @return 是否输入成功
+     */
+    public static boolean findNodeByIdAndInput(long maxMils, String id, String inputStr)
+    {
+        AccessibilityNodeInfo node = findNodeByIdWithTimeOut(maxMils, id);
+
+        if (node != null)
+        {
+            return AcessibilityApi.inputTextByNode(node, inputStr);
+
+        }
+
+        return false;
+    }
+
 
     /**
      * 判断是否是当前页面
@@ -654,23 +798,6 @@ public class UiApi
         return isPage;
     }
 
-    public static boolean jumpToNeedPage(String[] selecors)
-    {
-        List<ActionSelector> lists = new ArrayList<>();
-        for (String item : selecors)
-        {
-            ActionSelector payPage = new Gson().fromJson(item, ActionSelector.class);
-            if (payPage == null)
-            {
-                LogUtil.E("选择器字符串无法格式成功");
-                return false;
-            }
-            lists.add(payPage);
-        }
-
-        return jumpToNeedPage(lists);
-    }
-
 
     /**
      * 前往预期页面,可以串联多个页面路径
@@ -741,102 +868,6 @@ public class UiApi
 
     }
 
-
-    /**
-     * 通过text查找输入控件,然后输入
-     *
-     * @param maxMils  最大超时时间
-     * @param text     text节点查找
-     * @param inputStr 输入的内容
-     * @return 是否输入成功
-     */
-    public static boolean findNodeByTextAndInput(long maxMils, String text, String inputStr)
-    {
-        AccessibilityNodeInfo node = findNodeByTextWithTimeOut(maxMils, text);
-
-        if (node != null)
-        {
-            return AcessibilityApi.inputTextByNode(node, inputStr);
-
-        }
-
-        return false;
-    }
-
-    /**
-     * 通过text查找输入控件,然后输入
-     *
-     * @param maxMils  最大超时时间
-     * @param id       id节点查找
-     * @param inputStr 输入的内容
-     * @return 是否输入成功
-     */
-    public static boolean findNodeByIdAndInput(long maxMils, String id, String inputStr)
-    {
-        AccessibilityNodeInfo node = findNodeByIdWithTimeOut(maxMils, id);
-
-        if (node != null)
-        {
-            return AcessibilityApi.inputTextByNode(node, inputStr);
-
-        }
-
-        return false;
-    }
-
-    /**
-     * 回退到桌面
-     */
-    public static boolean backToDesk()
-    {
-        int i = 10;
-        while (i > 0)
-        {
-
-            AcessibilityApi.performAction(AcessibilityApi.ActionType.BACK);
-            String pke = AcessibilityApi.getEventPkg();
-            LogUtil.I("正在执行回退_当前包名:" + pke);
-
-            if ("".equals(pke))
-            {
-                LogUtil.D("辅助服务异常");
-                return false;
-            }
-
-
-            for (String str : Config.DESKTOP_PKG)
-            {
-                if (str.equals(pke))
-                {
-                    LogUtil.I("已到桌面");
-
-                    return true;
-                }
-            }
-            ApiUtil.sleepTime(1000);
-            i--;
-        }
-
-        return false;
-
-    }
-
-    /**
-     * 回home
-     */
-    public static void backHome()
-    {
-        AcessibilityApi.performAction(AcessibilityApi.ActionType.HOME);
-
-    }
-
-    /**
-     * 回back
-     */
-    public static void back()
-    {
-        AcessibilityApi.performAction(AcessibilityApi.ActionType.BACK);
-    }
 
     private static boolean isExists(AccessibilityNodeInfo nodeInfo)
     {

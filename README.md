@@ -31,12 +31,12 @@
 ps: 以判断是否在手机设置界面为例
 
 ```java
-String pageStr = "{" +
-        "'maxMustMills':3000," +
-         "'maxOptionMills':3000," +
-         "'must':{'text':['设置'],'id':[],'des':[]}" +
-         "'option':{'text':[],'id':[],'des':[]}}"+
-         "}";
+String pageStr = "{"
+                + "'maxMustMills':5000,"
+                +"'maxOptionMills':5000,"
+                + "'must':{'text':['设置'],'id':[],'desc':[]},"
+                +"'option':{'text':['更多'],'id':[],'desc':[]}"
+                + "}";
         UiApi.isMyNeedPage(pageStr);
        
 ```
@@ -48,7 +48,7 @@ String pageStr = "{" +
 > option 可选节点
 > text 节点文本内容,数组,可填多个
 > id 节点的资源id,数组,可填多个
-> des 节点的描述内容,数组,可填多个
+> desc 节点的描述内容,数组,可填多个
 > 
 
 ##### 2. UiApi.jumpToNeedPage [前往某个界面]
@@ -56,26 +56,29 @@ String pageStr = "{" +
 ps: 例子 [设置->移动网络]
 
 ```java
-String temp1 = "{" +
-       "'maxWClickMSec':1000," +
-       "'click':{'text':'更多'}," +
-       "'page':{" +
-       "'maxMustMills':5000," +
-       "'maxOptionMills':5000," +
-       "'must':{'text':['更多','设置'],'id':[],'des':[]}" +
-       "'option':{'text':[],'id':[],'des':[]}}"+
-       "}}";
+String temp1 = "{"
+                + "'maxWClickMSec':1000,"
+                + "'click':{'text':'更多'},"
+                + "'page':"
+                +"{"
+                + "'maxMustMills':5000,"
+                + "'maxOptionMills':5000,"
+                + "'must':{'text':['更多','设置'],'id':[],'desc':[]},"
+                + "'option':{'text':[],'id':[],'desc':[]}"
+                +"}"
+                +     "}";
 
-String temp2 = "{" +
-       "'maxWClickMSec':1000," +
-       "'click':{'text':'移动网络'}," +
-       "'page':{" +
-       "'maxMustMills':5000," +
-       "'maxOptionMills':5000," +
-       "'must':{'text':['移动网络'],'id':[],'des':[]}" +
-       "'option':{'text':['VPN','设置'],'id':[],'des':[]}}"+
-       "}}";
-		
+        String temp2 = "{"
+                + "'maxWClickMSec':1000,"
+                + "'click':{'text':'移动网络'},"
+                + "'page':"
+                +"{"
+                + "'maxMustMills':5000,"
+                + "'maxOptionMills':5000,"
+                + "'must':{'text':['移动网络','更多'],'id':[],'desc':[]},"
+                + "'option':{'text':[],'id':[],'desc':[]}"
+                +"}"
+                +     "}";	
 		UiApi.jumpToNeedPage(new String[]{temp1,temp2});
        
 ```
@@ -83,13 +86,13 @@ String temp2 = "{" +
 >参数说明	:
 > maxMustMills 必要节点最大查找时间,毫秒
 > maxOptionMills 可选节点最大查找时间,毫秒
-> click  需要点击的节点, 支持(text,id,dec)三种方式
+> click  需要点击的节点, 支持(text,id,desc)三种方式
 > page  页面
 > must 必要节点,
 > option 可选节点
 > text 节点文本内容,数组,可填多个
 > id 节点的资源id,数组,可填多个
-> des 节点的描述内容,数组,可填多个
+> desc 节点的描述内容,数组,可填多个
 
 
 
@@ -100,7 +103,7 @@ String temp2 = "{" +
 >1. backHome   回home页
 2. back    返回
 3. findNodeByTextWithTimeOut  通过text精确查找节点
-4. findNodeByIdWithTimeOut  通过Id 精确查找几点
+4. findNodeByIdWithTimeOut  通过Id 精确查找节点点
 5. findNodeByDesWithTimeOut 通过des 精确查找节点
 6. findNodeByClsWithTimeOut 通过类名,模糊查找节点,有多个只会返回第一个
 7. clickNodeByTextWithTimeOut 通过text查找节点并点击

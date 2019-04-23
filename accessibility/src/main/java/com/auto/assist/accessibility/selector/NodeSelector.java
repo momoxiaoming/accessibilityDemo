@@ -59,29 +59,29 @@ public class NodeSelector
         this.option = option;
     }
 
-    @Override
-    public String toString() {
-        return "NodeSelector{" +
-                "maxMustMills=" + maxMustMills +
-                ", maxOptionMills=" + maxOptionMills +
-                ", must=" + hasMapStr(must) +
-                ", option=" + hasMapStr(must) +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "NodeSelector{" +
+//                "maxMustMills=" + maxMustMills +
+//                ", maxOptionMills=" + maxOptionMills +
+//                ", must=" + hasMapStr(must) +
+//                ", option=" + hasMapStr(must) +
+//                '}';
+//    }
 
-    public String hasMapStr(HashMap<String, String[]> map) {
-        String rlt = "";
-        if (map != null)
-        {
-            for (String key : map.keySet())
-            {
-                rlt+="--key:"+key+"_value: "+map.get(key)[0];
-
-            }
-        }
-        return rlt;
-
-    }
+//    public String hasMapStr(HashMap<String, String[]> map) {
+//        String rlt = "";
+//        if (map != null)
+//        {
+//            for (String key : map.keySet())
+//            {
+//                rlt+="--key:"+key+"_value: "+map.get(key)[0];
+//
+//            }
+//        }
+//        return rlt;
+//
+//    }
 
     public static NodeSelector fromJson(String jsonStr) {
         return new Gson().fromJson(jsonStr, NodeSelector.class);

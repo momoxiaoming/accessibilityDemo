@@ -1,65 +1,54 @@
 package com.auto.assist.accessibility;
 
+import com.auto.assist.accessibility.api.UiApi;
+
 public class demo
 {
 
     /*****************多个页面点击*******************/
+//前往设置->移动网络页面
+public void test(){
+        String temp1 = "{" +
+                "'maxWClickMSec':1000," +
+                "'click':{'text':'更多'}," +
+                "'page':{" +
+                "'maxMustMills':5000," +
+                "'maxOptionMills':5000," +
+                "'must':{'text':['更多','设置'],'id':[],'des':[]}" +
+                "'option':{'text':[],'id':[],'des':[]}"+
+                "}}";
+
+        String temp2 = "{" +
+                "'maxWClickMSec':1000," +
+                "'click':{'text':'移动网络'}," +
+                "'page':{" +
+                "'maxMustMills':5000," +
+                "'maxOptionMills':5000," +
+                "'must':{'text':['移动网络'],'id':[],'des':[]}" +
+                "'option':{'text':['VPN','设置'],'id':[],'des':[]}"+
+                "}}";
 
 
-//    String mainPageStr = "{" +
-//            "'maxWClickMSec':1000," +
-//            "'click':{'text':'我'}," +
-//            "'page':{" +
-//            "'maxMustMills':5000," +
-//            "'maxOptionMills':5000," +
-//            "'must':{'text':['微信','通讯录']}" +
-//            "}}";
-//
-//
-//    String mePageStr = "{" +
-//            "'maxWClickMSec':1000," +
-//            "'click':{'text':'钱包'}," +
-//            "'page':{" +
-//            "'maxMustMills':3000," +
-//            "'maxOptionMills':3000," +
-//            "'must':{'text':['钱包','相册']}" +
-//            "}}";
-//
-//    String payMentStr = "{" +
-//            "'maxWClickMSec':1000," +
-//            "'click':{'text':'收付款'}," +
-//            "'page':{" +
-//            "'maxMustMills':3000," +
-//            "'maxOptionMills':3000," +
-//            "'must':{'text':['收付款','零钱']}" +
-//            "}}";
-//
-//    String payPageStr = "{" +
-//            "'maxWClickMSec':1000," +
-//            "'click':{'text':'二维码收款'}," +
-//            "'page':{" +
-//            "'maxMustMills':3000," +
-//            "'maxOptionMills':3000," +
-//            "'must':{'text':['二维码收款']}" +
-//            "}}";
-//
-//
 
 
-//
-//
-//         UiApi.jumpToNeedPage(new String[]{mainPageStr,mePageStr,payMentStr,payPageStr});
+             UiApi.jumpToNeedPage(new String[]{temp1,temp2});
 
-
+}
 
 
     /**************************单个页面判断****************/
 
-//    String codePageStr = "{" +
-//            "'maxMustMills':3000," +
-//            "'maxOptionMills':3000," +
-//            "'must':{'text':['清除金额','保存收款码']}" +
-//            "}";
-//
-//         UiApi.isMyNeedPage(codePageStr);
+//判断是否在设置界面
+    public void test1()
+    {
+        String pageStr = "{" +
+                "'maxMustMills':3000," +
+                "'maxOptionMills':3000," +
+                "'must':{'text':['设置'],'id':[],'des':[]}" +
+                "'option':{'text':['设置'],'id':[],'des':[]}"+
+                "}";
+        UiApi.isMyNeedPage(pageStr);
+
+    }
+
 }
