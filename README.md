@@ -1,4 +1,9 @@
 # accessibilityDemo
+
+有疑问可添加微信
+
+![](https://upload-images.jianshu.io/upload_images/1978245-409d19df76e4ba8f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 安卓模拟点击服务工具包
 
 ### 一. 如何使用? 亦可参考demo
