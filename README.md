@@ -2,7 +2,7 @@
 
 有疑问可添加微信
 
-![](https://upload-images.jianshu.io/upload_images/1978245-409d19df76e4ba8f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![11](https://upload-images.jianshu.io/upload_images/1978245-409d19df76e4ba8f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 安卓模拟点击服务工具包
 
@@ -117,3 +117,7 @@ String temp1 = "{"
 10. findNodeByTextAndInput 通过 text查找节点并输入内容
 11. findNodeByIdAndInput 通过id查找节点并输入内容
 12. ......其他自己去看源码
+
+
+
+
